@@ -1,0 +1,1 @@
+INSERT INTO users (first_name, last_name, email, password, role, enabled) VALUES ('Binod', 'Sethi', 'binod.sethi@reverside.co.za', 'secret', 'ROLE_ADMIN', true);
