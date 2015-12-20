@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="registration">
+<html ng-app="loan">
     <head lang="en">
         <meta charset="UTF-8">
         <title>Paisa</title>
@@ -14,20 +14,21 @@
         <script  type="text/javascript" src="/lib/angular/angular-messages.js"></script>
         <script  type="text/javascript" src="/lib/angular/angular-animate.js"></script>
         <script  type="text/javascript" src="/lib/angular/ui-bootstrap-tpls-0.13.4.js"></script>
-        <script  type="text/javascript" src="/js/registration.js"></script>
+        <script  type="text/javascript" src="/js/loan.js"></script>
     </head>
-    
-    <div id="wrapper" style="background: #E0E2E4;" class="container-fluid"> 
 
-        <div id="header" ng-include="'/html/registration-header.html'"></div>
+    <body ng-controller="loanCtrl" ng-init="init()" style="background: silver;">
 
-        <div class="row">
+        <div ng-if="session" id="wrapper" class="container-fluid" >
 
-            <div id="content" ng-view style="background: #295b7c">Loading....</div>
-
+            <div id="wrapper" style="background: #E0E2E4;" class="container-fluid"> 
+                <div id="header" ng-include="'/html/registration-header.html'"></div>
+                <div class="row" >
+                    <div id="content" ng-view>Loading....</div>
+                </div>
+                <div id="footer" ng-include="'/html/registration-footer.html'"></div>
+            </div>
         </div>
 
-        <div id="footer" ng-include="'/html/registration-footer.html'"></div>
-
-    </div>
+    </body>
 </html>

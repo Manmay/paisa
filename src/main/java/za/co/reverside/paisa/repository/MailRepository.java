@@ -27,7 +27,7 @@ import za.co.reverside.paisa.domain.Notification;
 @Repository
 public class MailRepository {
 
-    private  String username;
+    private  String user;
     private final Session session;
 
     @Autowired
@@ -36,7 +36,7 @@ public class MailRepository {
     		@Value("${mail.username}")final String user,
     		@Value("${mail.password}")final String pass) {
     	
-    	setUsername(user);
+    	this.user = user;
         Properties props = new Properties();
         props.put("mail.smtp.host", host);
         props.put("mail.smtp.port", port);
@@ -58,7 +58,7 @@ public class MailRepository {
 
     public void send(Notification notification) throws AddressException, MessagingException {
         Message message = new MimeMessage(session);
-        message.setFrom(new InternetAddress(getUsername()));
+        message.setFrom(new InternetAddress(user));
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(notification.getTo()));
         message.setSubject(notification.getSubject());
         message.setText(notification.getMessage());
@@ -82,13 +82,5 @@ public class MailRepository {
         }
         Transport.send(message);
     }
-
-	public String getUsername() {
-		return username;
-	}
-
-	private void setUsername(String username) {
-		this.username = username;
-	}
 
 }

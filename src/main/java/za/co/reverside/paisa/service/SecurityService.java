@@ -3,8 +3,8 @@ package za.co.reverside.paisa.service;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.Base64;
 
-import org.bouncycastle.util.encoders.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +40,7 @@ public class SecurityService {
             state = "%2F";
         }
         MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
-        headers.add("Location", "paisa/signin.html");
+        headers.add("Location", "signin.html");
         headers.add("Set-Cookie", "state=" + state + ";");
         headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
         headers.add("Pragma", "no-cache");
@@ -48,13 +48,13 @@ public class SecurityService {
         return new ResponseEntity<String>(headers, HttpStatus.MOVED_PERMANENTLY);
     }
 
-    @RequestMapping(value = "/paisa/login", method = RequestMethod.POST)
+    @RequestMapping(value = "login", method = RequestMethod.POST)
     public ResponseEntity<String> login(@RequestParam("userName") String email, @RequestParam("password") String password,
             @CookieValue(value = "state", required = false, defaultValue = "%2F") String state) {
 
         LOGGER.info("user login - userName:{}, password:{}, state:{}", email, password, state);
 
-        User user = userRepository.findByEmailandPassword(email, password);
+        User user = userRepository.findByEmailAndPassword(email, password);
 
         if (user != null) {
             try {
@@ -66,8 +66,8 @@ public class SecurityService {
             String token = user.getEmail() + ":" + user.getPassword();
             MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
             if (user.getRole().equals("USER")) {
-                headers.add("Location", "/paisa/loanTypes.html");
-                headers.add("Set-Cookie", "token=" + new String(Base64.encode(token.getBytes())));
+                headers.add("Location", "loanTypes.html");
+                headers.add("Set-Cookie", "token=" + new String(Base64.getEncoder().encode(token.getBytes())));
                 headers.add("Set-Cookie", "state=; Max-Age=0");
                 headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
                 headers.add("Pragma", "no-cache");
@@ -77,7 +77,7 @@ public class SecurityService {
             return new ResponseEntity<String>(headers, HttpStatus.MOVED_PERMANENTLY);
         } else {
             MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
-            headers.add("Location", "/paisa/signin.html");
+            headers.add("Location", "signin.html");
             headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
             headers.add("Pragma", "no-cache");
             headers.add("Expires", "0");
@@ -87,13 +87,13 @@ public class SecurityService {
     
 
 
-    @RequestMapping(value = "/validate", method = RequestMethod.POST, consumes = "text/html")
+    @RequestMapping(value = "validate", method = RequestMethod.POST, consumes = "text/html")
     public UserQueryModel validate(@RequestBody String token) {
-        byte[] value = Base64.decode(token.getBytes());
+        byte[] value = Base64.getDecoder().decode(token.getBytes());
         String username = new String(value).split(":")[0];
         String password = new String(value).split(":")[1];
 
-        User user = userRepository.findByEmailandPassword(username, password);
+        User user = userRepository.findByEmailAndPassword(username, password);
 
         if (user != null) {
             return toUserQueryModel(user);
@@ -101,10 +101,10 @@ public class SecurityService {
         throw new RuntimeException("Invalid Token");
     }
 
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    @RequestMapping(value = "logout", method = RequestMethod.GET)
     public ResponseEntity<String> logout() {
         MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
-        headers.add("Location", "/paisa/signin.html");
+        headers.add("Location", "signin.html");
         headers.add("Set-Cookie", "token=; Max-Age=0");
         headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
         headers.add("Pragma", "no-cache");

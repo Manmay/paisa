@@ -38,6 +38,14 @@ public class User {
     @Column(name = "enabled")
     private boolean enabled;
 
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
     public Long getId() {
         return id;
     }
@@ -93,15 +101,4 @@ public class User {
     public void setRole(String role) {
         this.role = role;
     }
-
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    
-
 }

@@ -3,26 +3,25 @@ var home = angular.module('home', ['ngRoute']);
 home.config(['$routeProvider', function ($routeProvider) {
 
         $routeProvider
-                .when('/home', {
-                    'templateUrl': '/html/home.html',
-                    'controller': 'homeCtrl'
-                }).when('/registration', {
-                    'templateUrl': '/html/registration.html',
-                    'controller': 'registrationCtrl'
+                .when('/public', {
+                    'templateUrl': '/html/public.html',
+                    'controller': 'publicCtrl'
+                }).when('/sign-up', {
+                    'templateUrl': '/html/sign-up.html',
+                    'controller': 'signUpCtrl'
+                }).when('/sign-in', {
+                    'templateUrl': '/html/sign-in.html',
+                    'controller': 'signInCtrl'
                 }).otherwise({
-                    redirectTo: '/home'
+                    redirectTo: '/public'
                 });
     }]);
 
-home.controller('homeCtrl', function ($scope, $rootScope, $http) {
-   
-    $scope.init = function () {
-
-    };
+home.controller('publicCtrl', function ($scope) {
 
 });
 
-home.controller('registrationCtrl', function ($scope, $rootScope, $http, $routeParams) {
+home.controller('signInCtrl', function ($scope, $rootScope, $http) {
 
     $scope.register;
 
@@ -56,6 +55,10 @@ home.controller('registrationCtrl', function ($scope, $rootScope, $http, $routeP
             });
         }
     };
+});
+
+home.controller('signUpCtrl', function ($scope, $http) {
+
 });
 
 

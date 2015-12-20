@@ -7,8 +7,6 @@ import za.co.reverside.paisa.domain.LoanType;
 
 @Repository
 public interface LoanTypeRepository extends JpaRepository<LoanType, Long> {
-    
-    
 
 }
 
