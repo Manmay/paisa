@@ -28,7 +28,7 @@ public class NotificationService {
 
 		String subject = "Please verify your email address !";
 
-		String message = String.format("Dear" +  user.getFirst_name()+ ",\n \n"
+		String message = String.format("Dear  " +  user.getFirst_name() + ",\n \n"
                                                 + "\n"
                                                 + "\n"
                                                 + "Verify your Email Address" + "\n"
@@ -37,7 +37,7 @@ public class NotificationService {
                                                 + "\n"
                                                 + "Please click on this this link to activate your account" + "\n"
                                                 + "\n"
-                                                + "http://%s:%s/paisa/verifyemail/" + UUID.randomUUID().toString().substring(1, 15) + "\n"
+                                                + "http://%s:%s/index.html#/sign-in/" + "  " + UUID.randomUUID().toString().substring(1, 15) + "\n"
                                                 + "\n"
                                                 + "\n"
                                                 + "Thanks" + " & " + "Regards" + "\n"

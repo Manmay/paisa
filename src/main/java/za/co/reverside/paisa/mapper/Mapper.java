@@ -12,7 +12,7 @@ import za.co.reverside.paisa.model.UserQueryModel;
 
 public class Mapper {
 
-    public static User fromRegistration(UserCommandModel userCommandModel) {
+    public static User fromUser(UserCommandModel userCommandModel) {
 
         User user = new User();
         user.setFirst_name(userCommandModel.getFirstName());
@@ -20,7 +20,7 @@ public class Mapper {
         user.setPhoneNumber(userCommandModel.getPhoneNumber());
         user.setEmail(userCommandModel.getEmail());
         user.setPassword(userCommandModel.getPassword());
-        user.setRole("USER");
+        user.setRole("ROLE_USER");
         user.setEnabled(true);
         return user;
     }

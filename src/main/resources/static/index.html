@@ -18,7 +18,10 @@
     </head>
 
     <body style="background: silver;">
-            <div ng-view></div>
+        <div id="header" ng-include="'/html/home-header.html'"></div>
+        <div class="row">
+            <div id="content" ng-view>Loading....</div>
+        </div>
     </body>
 
 </html>
