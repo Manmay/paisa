@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import za.co.reverside.paisa.domain.LoanType;
-import static za.co.reverside.paisa.mapper.Mapper.toProductQueryModel;
 import za.co.reverside.paisa.model.LoanTypesQueryModel;
 import za.co.reverside.paisa.repository.LoanTypeRepository;
 
@@ -22,11 +21,11 @@ public class LoanTypeService {
     
 
         
-    @RequestMapping(value = "api/loanTypes", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<LoanTypesQueryModel> findAllLoanTypes() {
-        List<LoanType> loanTypes = loanTypeRepository.findAll();
-        return toProductQueryModel(loanTypes);
-    }
+//    @RequestMapping(value = "api/loanTypes", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+//    public List<LoanTypesQueryModel> findAllLoanTypes() {
+//        List<LoanType> loanTypes = loanTypeRepository.findAll();
+//        return toProductQueryModel(loanTypes);
+//    }
 
 
 } 

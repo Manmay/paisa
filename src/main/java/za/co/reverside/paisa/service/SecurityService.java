@@ -18,11 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import za.co.reverside.paisa.domain.User;
+import static za.co.reverside.paisa.mapper.Mapper.toUserQueryModel;
+import za.co.reverside.paisa.model.UserQueryModel;
+import za.co.reverside.paisa.repository.UserRepository;
 
-import za.co.reverside.paisa.domain.Login;
-import static za.co.reverside.paisa.mapper.Mapper.toLoginQueryModel;
-import za.co.reverside.paisa.model.LoginQueryModel;
-import za.co.reverside.paisa.repository.LoginRepository;
 
 @RestController
 public class SecurityService {
@@ -30,7 +30,7 @@ public class SecurityService {
     private static final Logger LOGGER = LoggerFactory.getLogger(SecurityService.class);
 
     @Autowired
-    LoginRepository loginRepository;
+    UserRepository userRepository;
 
     @RequestMapping(value = "login", method = RequestMethod.GET)
     public ResponseEntity<String> login(@RequestParam(value = "state", required = false, defaultValue = "/") String state) {
@@ -49,12 +49,12 @@ public class SecurityService {
     }
 
     @RequestMapping(value = "/paisa/login", method = RequestMethod.POST)
-    public ResponseEntity<String> login(@RequestParam("userName") String userName, @RequestParam("password") String password,
+    public ResponseEntity<String> login(@RequestParam("userName") String email, @RequestParam("password") String password,
             @CookieValue(value = "state", required = false, defaultValue = "%2F") String state) {
 
-        LOGGER.info("user login - userName:{}, password:{}, state:{}", userName, password, state);
+        LOGGER.info("user login - userName:{}, password:{}, state:{}", email, password, state);
 
-        Login user = loginRepository.findByUserNameAndPassword(userName, password);
+        User user = userRepository.findByEmailandPassword(email, password);
 
         if (user != null) {
             try {
@@ -63,7 +63,7 @@ public class SecurityService {
                 state = "/";
             }
             LOGGER.info("Role : " + user.getRole());
-            String token = user.getUserName() + ":" + user.getPassword();
+            String token = user.getEmail() + ":" + user.getPassword();
             MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
             if (user.getRole().equals("USER")) {
                 headers.add("Location", "/paisa/loanTypes.html");
@@ -88,15 +88,15 @@ public class SecurityService {
 
 
     @RequestMapping(value = "/validate", method = RequestMethod.POST, consumes = "text/html")
-    public LoginQueryModel validate(@RequestBody String token) {
+    public UserQueryModel validate(@RequestBody String token) {
         byte[] value = Base64.decode(token.getBytes());
         String username = new String(value).split(":")[0];
         String password = new String(value).split(":")[1];
 
-        Login user = loginRepository.findByUserNameAndPassword(username, password);
+        User user = userRepository.findByEmailandPassword(username, password);
 
         if (user != null) {
-            return toLoginQueryModel(user);
+            return toUserQueryModel(user);
         }
         throw new RuntimeException("Invalid Token");
     }

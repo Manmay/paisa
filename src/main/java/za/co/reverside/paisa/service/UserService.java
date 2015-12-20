@@ -6,12 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestBody;
-import za.co.reverside.paisa.domain.User;
-import za.co.reverside.paisa.domain.Login;
-import static za.co.reverside.paisa.mapper.Mapper.fromLoginCommandModel;
-import static za.co.reverside.paisa.mapper.Mapper.fromRegistration;
 import za.co.reverside.paisa.model.UserCommandModel;
-import za.co.reverside.paisa.repository.LoginRepository;
 import za.co.reverside.paisa.repository.UserRepository;
 
 
@@ -21,10 +16,7 @@ public class UserService {
     
     
     @Autowired
-    private UserRepository registrationRepository;
-    
-    @Autowired
-    private LoginRepository logiRepository;
+    private UserRepository userRepository;
     
     @Autowired
     private NotificationService notificationService;
@@ -34,12 +26,10 @@ public class UserService {
     public void  registerUser(@RequestBody UserCommandModel userCommandModel) {
 
         
-        User user = fromRegistration(userCommandModel);
-        registrationRepository.save(user);
-        Login login = fromLoginCommandModel(userCommandModel,user);
-        Login newUserLogin = logiRepository.save(login);
-        notificationService.sendLoginDetailsNotification(newUserLogin);
-        System.out.println("Saved Successfully");
+//        User user = fromRegistration(userCommandModel);
+//        userRepository.save(user);
+//        notificationService.sendLoginDetailsNotification(user);
+//        System.out.println("Saved Successfully");
     }
 
 

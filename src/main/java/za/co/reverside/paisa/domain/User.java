@@ -23,14 +23,17 @@ public class User {
     @Column(name = "last_name")
     private String last_name;
 
-    @Column(name = "phone_number")
-    private String mobile_number;
+    @Column(name = "phone")
+    private String phoneNumber;
 
     @Column(name = "email")
     private String email;
     
     @Column(name = "password")
     private String password;
+    
+    @Column(name = "role")
+    private String role;
     
     @Column(name = "enabled")
     private boolean enabled;
@@ -59,12 +62,12 @@ public class User {
         this.last_name = last_name;
     }
 
-    public String getMobile_number() {
-        return mobile_number;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setMobile_number(String mobile_number) {
-        this.mobile_number = mobile_number;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getEmail() {
@@ -83,12 +86,22 @@ public class User {
         this.password = password;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     public boolean isEnabled() {
         return enabled;
     }
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
-    } 
+    }
+
+    
 
 }

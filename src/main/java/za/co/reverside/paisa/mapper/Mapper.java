@@ -2,13 +2,12 @@ package za.co.reverside.paisa.mapper;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 import za.co.reverside.paisa.domain.LoanType;
-import za.co.reverside.paisa.domain.Login;
 import za.co.reverside.paisa.domain.User;
 import za.co.reverside.paisa.model.LoanTypesQueryModel;
-import za.co.reverside.paisa.model.LoginQueryModel;
 import za.co.reverside.paisa.model.UserCommandModel;
+import za.co.reverside.paisa.model.UserQueryModel;
+
 
 
 public class Mapper {
@@ -18,39 +17,37 @@ public class Mapper {
         User user = new User();
         user.setFirst_name(userCommandModel.getFirstName());
         user.setLast_name(userCommandModel.getLastName());
-        user.setMobile_number(userCommandModel.getPhoneNumber());
+        user.setPhoneNumber(userCommandModel.getPhoneNumber());
         user.setEmail(userCommandModel.getEmail());
         user.setPassword(userCommandModel.getPassword());
+        user.setRole("USER");
         user.setEnabled(true);
         return user;
     }
     
-    public static Login fromLoginCommandModel(UserCommandModel userCommandModel,User users){
-        Login loginDetails = new Login();
-        loginDetails.setUser(users);
-        loginDetails.setUserName(userCommandModel.getFirstName() + UUID.randomUUID().toString().substring(1, 3));
-        loginDetails.setPassword(users.getPassword());
-        loginDetails.setRole("USER");
-        return loginDetails;
-    }
-    
-    public static LoginQueryModel toLoginQueryModel(Login from) {
-        
-        LoginQueryModel user = new LoginQueryModel();
+    public static UserQueryModel toUserQueryModel(User from) {
+        UserQueryModel user = new UserQueryModel();
         user.setId(from.getId());
-        user.setUserName(from.getUserName());
+        user.setFirstName(from.getFirst_name());
+        user.setLastName(from.getLast_name());
+        user.setEmail(from.getEmail());
         user.setPassword(from.getPassword());
         user.setRole(from.getRole());
         return user;
     }
 
-    public static List<LoginQueryModel> toUserQueryModel(List<Login> fromList) {
-        List<LoginQueryModel> userList = new ArrayList<LoginQueryModel>();
-        for (Login user : fromList) {
-            userList.add(toLoginQueryModel(user));
+    public static List<UserQueryModel> toUserQueryModel(List<User> fromList) {
+        List<UserQueryModel> userList = new ArrayList<UserQueryModel>();
+        for (User user : fromList) {
+            userList.add(toUserQueryModel(user));
         }
         return userList;
     }
+      
+    
+    
+
+    
     
     public static LoanTypesQueryModel toProductQueryModel(LoanType from) {
         LoanTypesQueryModel loanTypesQueryModel = new LoanTypesQueryModel();

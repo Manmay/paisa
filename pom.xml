@@ -137,7 +137,13 @@
 			<artifactId>mail</artifactId>
 			<version>1.4.5</version>
 		</dependency>
-	</dependencies>
+                <dependency>
+                        <groupId>za.co.reverside</groupId>
+                        <artifactId>paisa</artifactId>
+                        <version>0.0.1-SNAPSHOT</version>
+                        <type>jar</type>
+                </dependency>
+        </dependencies>
 	<build>
 		<plugins>
 			<plugin>
