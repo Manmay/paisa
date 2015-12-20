@@ -40,7 +40,7 @@ public class SecurityService {
             state = "%2F";
         }
         MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
-        headers.add("Location", "signin.html");
+        headers.add("Location", "index.html#/sign-in");
         headers.add("Set-Cookie", "state=" + state + ";");
         headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
         headers.add("Pragma", "no-cache");
@@ -49,8 +49,9 @@ public class SecurityService {
     }
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
-    public ResponseEntity<String> login(@RequestParam("userName") String email, @RequestParam("password") String password,
-            @CookieValue(value = "state", required = false, defaultValue = "%2F") String state) {
+    public ResponseEntity<String> login(@RequestParam("email") String email,
+                                        @RequestParam("password") String password,
+                                        @CookieValue(value = "state", required = false, defaultValue = "user.html") String state) {
 
         LOGGER.info("user login - userName:{}, password:{}, state:{}", email, password, state);
 
@@ -60,13 +61,13 @@ public class SecurityService {
             try {
                 state = URLDecoder.decode(state, "UTF-8");
             } catch (UnsupportedEncodingException e) {
-                state = "/";
+                state = "user.html";
             }
             LOGGER.info("Role : " + user.getRole());
             String token = user.getEmail() + ":" + user.getPassword();
             MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
-            if (user.getRole().equals("USER")) {
-                headers.add("Location", "loanTypes.html");
+            if (user.getRole().equals("ROLE_USER")) {
+                headers.add("Location", state);
                 headers.add("Set-Cookie", "token=" + new String(Base64.getEncoder().encode(token.getBytes())));
                 headers.add("Set-Cookie", "state=; Max-Age=0");
                 headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
@@ -77,7 +78,7 @@ public class SecurityService {
             return new ResponseEntity<String>(headers, HttpStatus.MOVED_PERMANENTLY);
         } else {
             MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
-            headers.add("Location", "signin.html");
+            headers.add("Location", "index.html#/sign-in");
             headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
             headers.add("Pragma", "no-cache");
             headers.add("Expires", "0");
@@ -104,7 +105,7 @@ public class SecurityService {
     @RequestMapping(value = "logout", method = RequestMethod.GET)
     public ResponseEntity<String> logout() {
         MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
-        headers.add("Location", "signin.html");
+        headers.add("Location", "index.html#/public");
         headers.add("Set-Cookie", "token=; Max-Age=0");
         headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
         headers.add("Pragma", "no-cache");

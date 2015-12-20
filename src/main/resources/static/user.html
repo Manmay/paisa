@@ -14,21 +14,15 @@
         <script  type="text/javascript" src="/lib/angular/angular-messages.js"></script>
         <script  type="text/javascript" src="/lib/angular/angular-animate.js"></script>
         <script  type="text/javascript" src="/lib/angular/ui-bootstrap-tpls-0.13.4.js"></script>
-        <script  type="text/javascript" src="/js/loan.js"></script>
+        <script  type="text/javascript" src="/js/user.js"></script>
     </head>
 
-    <body ng-controller="loanCtrl" ng-init="init()" style="background: silver;">
+    <body ng-controller="userCtrl" ng-init="init()" style="background: silver;">
 
-        <div ng-if="session" id="wrapper" class="container-fluid" >
-
-            <div id="wrapper" style="background: #E0E2E4;" class="container-fluid"> 
-                <div id="header" ng-include="'/html/registration-header.html'"></div>
-                <div class="row" >
-                    <div id="content" ng-view>Loading....</div>
-                </div>
-                <div id="footer" ng-include="'/html/registration-footer.html'"></div>
-            </div>
+        <div ng-if="session"  >
+            <div ng-view>Loading....</div>
         </div>
 
     </body>
+
 </html>

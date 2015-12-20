@@ -3,20 +3,17 @@ var loan = angular.module('loan', ['ngRoute','ngCookies']);
 loan.config(['$routeProvider', function ($routeProvider) {
 
         $routeProvider
-                .when('/loanTypes', {
-                    'templateUrl': '/html/loanTypes.html',
-                    'controller': 'loanCtrl'
+                .when('/home', {
+                    'templateUrl': '/html/home.html',
+                    'controller': 'homeCtrl'
                 }).otherwise({
-            redirectTo: '/login'
-        });
+                    redirectTo: '/home'
+                });
     }]);
 
-loan.controller('loanCtrl', function ($scope, $rootScope, $http, $cookies, $window) {
+loan.controller('userCtrl', function ($scope, $rootScope, $http, $cookies, $window) {
 
     $scope.init = function () {
-        
-        $scope.getLoanTpes();
-
         if ($cookies.token == undefined) {
             $window.location.href = "/login?state=" + encodeURIComponent($window.location.href);
         } else {
@@ -57,7 +54,7 @@ loan.controller('loanCtrl', function ($scope, $rootScope, $http, $cookies, $wind
         }).success(function (data, status) {
             $rootScope.session = data;
 
-            if ($rootScope.session.role != "USER") {
+            if ($rootScope.session.role != "ROLE_USER") {
                 $window.location.href = "/logout";
             }
 
@@ -66,6 +63,10 @@ loan.controller('loanCtrl', function ($scope, $rootScope, $http, $cookies, $wind
             $window.location.href = "/logout";
         });
     };
+
+});
+
+loan.controller('homeCtrl', function ($scope, $rootScope, $http, $cookies, $window) {
 
 });
 

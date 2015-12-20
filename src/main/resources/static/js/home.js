@@ -12,6 +12,9 @@ home.config(['$routeProvider', function ($routeProvider) {
                 }).when('/sign-in', {
                     'templateUrl': '/html/sign-in.html',
                     'controller': 'signInCtrl'
+                }).when('/reset-password', {
+                    'templateUrl': '/html/reset-password.html',
+                    'controller': 'resetPasswordCtrl'
                 }).otherwise({
                     redirectTo: '/public'
                 });
@@ -58,6 +61,10 @@ home.controller('signInCtrl', function ($scope, $rootScope, $http) {
 });
 
 home.controller('signUpCtrl', function ($scope, $http) {
+
+});
+
+home.controller('resetPasswordCtrl', function ($scope, $http) {
 
 });
 
