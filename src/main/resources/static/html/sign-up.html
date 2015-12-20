@@ -1,77 +1,86 @@
-<div class="row" style="padding: 25px;" ng-init="init()">
-    <div class="alert alert-success alert-dismissible" role="alert" ng-if="message">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="closeNotification()">
-            <span aria-hidden="true">&times;</span>
-        </button>
-        <strong>Success ! </strong>{{message}}
-    </div>
+<div class="container-fluid">
 
-    <div class="form form-horizontal col-md-12" style="padding: 25px; color: #3276b1">
+    <div class="row" style="padding: 25px;" ng-init="init()">
+        <div class="col-md-4">
 
-        <form data-toggle="validator" role="form" name="form" id="form">
-            <div class="panel-body">
-                <div>
-                    <div class="input-group input-group-lg">
+        </div>
+        <div class="alert alert-success alert-dismissible" role="alert" ng-if="message">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="closeNotification()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <strong>Success ! </strong>{{message}}
+        </div>
 
+        <div class="form form-horizontal col-md-4" style="padding: 25px; color: #3276b1">
 
+            <form data-toggle="validator" role="form" name="form" id="form">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <strong>Register</strong>
+                    </div><br>
+
+                    <div class="input-group input-group-lg,form-group">
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-user"></span>
                         </span>  
                         <input type="text" class="form-control" id="firstName"
-                               ng-model="register.firstName" placeholder="first name" required/>
+                               ng-model="register.firstName" placeholder="First Name" required/>
 
-                    </div><br>
-                    <div class="input-group input-group-lg">
+                    </div>
+                    <div class="input-group input-group-lg,form-group">
 
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-user"></span>
                         </span> 
                         <input type="text" class="form-control" id="lastName"
-                               ng-model="register.lastName" placeholder="last name" required/>
-                    </div><br>
-                    <div class="input-group input-group-lg">
+                               ng-model="register.lastName" placeholder="Last Name" required/>
+                    </div>
+                    <div class="input-group input-group-lg,form-group">
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-earphone"></span>
                         </span>
                         <input
                             type="number" class="form-control" phone-input id="phoneNumber"
-                            ng-model="register.phoneNumber" placeholder="+27 phone number" required/>
-                    </div><br>
-                    <div class="input-group input-group-lg">
+                            ng-model="register.phoneNumber" placeholder="Phone Number" required/>
+                    </div>
+                    <div class="input-group input-group-lg,form-group">
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-envelope"></span>
                         </span>
                         <input type="email" class="form-control" id="email"
-                            ng-model="register.email" placeholder="email" required/>
-                    </div><br>
-                    
-                    <div class="input-group input-group-lg">
+                               ng-model="register.email" placeholder="Email" required/>
+                    </div>
+
+                    <div class="input-group input-group-lg,form-group">
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-lock"></span>
                         </span>
                         <input type="password" class="form-control" id="password"
-                            ng-model="register.password" placeholder="Password" required/>
-                    </div><br>
-                    
-                    <div class="panel-footer text-right">
-				<p>
-                                        <button type="reset" value="Reset" class="btn btn-info" role="button">Reset</button>
-					<button class="btn btn-success" ng-click="save(form)"role="button">Register</button>
-				</p>
-                    </div><br>
-                    
-                    <div>
-                        <div class="col-md-12" align="center">
-                            <span style="color: gold">By clicking on "Register" you are agreeing to the Paise Privacy Policy.</span>
-                        </div>
+                               ng-model="register.password" placeholder="Password" required/>
                     </div>
+                    
+                    <div class="input-group input-group-lg,form-group">
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-lock"></span>
+                        </span>
+                        <input type="password" class="form-control" id="cofirmPassword"
+                               ng-model="register.confirmPassword" placeholder="Confirm Password" required/>
+                    </div><br>
+                    
 
-                    <div class="input-group input-group-lg">
-                        <a class="btn btn-info" ng-href="#/home" role="button"><span style="color: white" class="glyphicon glyphicon-home"></span>Home</a>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-md-6 text-right">
+                                <button type="reset" value="Reset" class="btn btn-info" role="button">Reset</button>
+                            </div>
+                            <div class="col-md-6 text-left">
+                                <button class="btn btn-success" ng-click="save(form)"role="button">Register</button>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
-            </div>
-
-        </form>
+            </form>
+        </div>
     </div>
 </div>
