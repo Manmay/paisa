@@ -1,17 +1,17 @@
-var loan = angular.module('loan', ['ngRoute','ngCookies']);
+var admin = angular.module('admin', ['ngRoute','ngCookies']);
 
-loan.config(['$routeProvider', function ($routeProvider) {
+admin.config(['$routeProvider', function ($routeProvider) {
 
         $routeProvider
-                .when('/home', {
-                    'templateUrl': '/html/home.html',
+                .when('/adminView', {
+                    'templateUrl': '/html/adminView.html',
                     'controller': 'homeCtrl'
                 }).otherwise({
-                    redirectTo: '/home'
+                    redirectTo: '/adminView'
                 });
     }]);
 
-loan.controller('userCtrl', function ($scope, $rootScope, $http, $cookies, $window) {
+admin.controller('userCtrl', function ($scope, $rootScope, $http, $cookies, $window) {
 
     $scope.init = function () {
         if ($cookies.token == undefined) {
@@ -19,24 +19,6 @@ loan.controller('userCtrl', function ($scope, $rootScope, $http, $cookies, $wind
         } else {
             $scope.validate($cookies.token);
         }
-    };
-
-    $scope.getLoanTpes = function () {
-        $http({
-            url: '/api/loanTypes',
-            method: 'get'
-        }).success(function (data, status) {
-            if (status === 200) {
-                console.log('retrived successfully');
-                $rootScope.loans = data;
-            } else {
-                console.log('status:' + status);
-                $rootScope.error = "error status code : " + status;
-                ;
-            }
-        }).error(function (error) {
-            $rootScope.message = "Oops, we received your request, but there was an error processing it";
-        });
     };
 
     $scope.closeNotification = function () {
@@ -54,7 +36,7 @@ loan.controller('userCtrl', function ($scope, $rootScope, $http, $cookies, $wind
         }).success(function (data, status) {
             $rootScope.session = data;
 
-            if ($rootScope.session.role != "ROLE_USER") {
+            if ($rootScope.session.role != "ROLE_ADMIN") {
                 $window.location.href = "/logout";
             }
             $http.defaults.headers.common['Authorization'] = 'Basic ' + $cookies.token;
@@ -65,7 +47,7 @@ loan.controller('userCtrl', function ($scope, $rootScope, $http, $cookies, $wind
 
 });
 
-loan.controller('homeCtrl', function ($scope, $rootScope, $http, $cookies, $window) {
+admin.controller('homeCtrl', function ($scope, $rootScope, $http, $cookies, $window) {
     
     $scope.user;
 
